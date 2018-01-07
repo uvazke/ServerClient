@@ -30,10 +30,8 @@ socket.on("sendMessageToClient", function (data) {
     $("#msg_list").prepend("<li>" + data.value + "</li>");
 });
 socket.on("count", function(data){
-    console.log(socket.nsp.server.eio.clientsCount);
     console.log(data.a);
     $("#people_num").defaultValue  = data.a;
-
 });
 
 

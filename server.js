@@ -22,6 +22,7 @@ io.sockets.on('connection', function (socket) {
   //接続切れイベントを設定
   socket.on("disconnect", function () {
       io.emit("sendMessageToClient", {value:"1人退室しました。"});
+      io.emit("count", {a:socket.nsp.server.eio.clientsCount});
   });
 });
 

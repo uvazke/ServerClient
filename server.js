@@ -12,6 +12,7 @@ io.sockets.on('connection', function (socket) {
   console.log('connected');
   //接続通知をクライアントに送信
   io.emit("sendMessageToClient", {value:"1人入室しました。"});
+  io.emit("Count", {a:socket.client.conn.server.clientsCount});
 
   //クライアントからの受信イベントを設定
   socket.on("sendMessageToServer", function (data) {

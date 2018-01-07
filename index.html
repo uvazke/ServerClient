@@ -29,9 +29,9 @@ var socket = io.connect(url);
 socket.on("sendMessageToClient", function (data) {
     $("#msg_list").prepend("<li>" + data.value + "</li>");
 });
-socket.on("count", function(data{
+socket.on("count", function(data){
     $("#people_num").defaultValue  = data.a;
-}));
+});
 
 
 //ボタンクリック時に、メッセージ送信

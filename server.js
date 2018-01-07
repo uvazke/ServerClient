@@ -25,7 +25,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 function doRequest(req,res){
-  fs.readFile('./client.html', 'UTF-8',
+  fs.readFile('./index.html', 'UTF-8',
   function(err, data) {
     var path = url.parse(req.url).pathname;
     console.log("Request for " + path + "received.");

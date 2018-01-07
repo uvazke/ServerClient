@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8">
   <title>Client</title>
-  <!-- socket.ioのクラインアントライブラリを取得 -->
   <script src="./socket.io/socket.io.js"></script>
 </head>
 <body>
-  <p>接続数：<span id = "people_num"></span></p>
-  <ul id="msg_list"></ul>
+  <p>接続数：<span id="people_num"></span></p>
+  <p><span id="msg_list"></span></p>
   <form action="" method="post" onsubmit="return false;">
     <input type="text" class="text" id="message"/>
     <input type="submit" class="button" id="send" value="送信" />
@@ -27,11 +26,11 @@ var socket = io.connect(url);
 
 //サーバから受け取るイベントを作成
 socket.on("sendMessageToClient", function (data) {
-    $("#msg_list").prepend("<li>" + data.value + "</li>");
+    $("#msg_list").prepend("<span>" + data.name + " : " +data.value + "</span><br>");
 });
 socket.on("count", function(data){
-    console.log(data.a);
-    $("#people_num").text(data.a);
+    console.log(data.count);
+    $("#people_num").text(data.count);
 });
 
 

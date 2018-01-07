@@ -11,8 +11,10 @@ console.log('server runnning');
 io.sockets.on('connection', function (socket) {
   console.log('connected');
   //接続通知をクライアントに送信
-  io.emit("sendMessageToClient", {value:"1人入室しました。"});
-  io.emit("count", {a:socket.nsp.server.eio.clientsCount});
+  socket.on("sendNameToServer", function(data){
+    io.emit("sendMessageToClient", {name: data.value, value:"1人入室しました。"});
+    io.emit("count", {count:socket.nsp.server.eio.clientsCount});
+  });
 
   //クライアントからの受信イベントを設定
   socket.on("sendMessageToServer", function (data) {
@@ -27,7 +29,7 @@ io.sockets.on('connection', function (socket) {
 });
 
 function doRequest(req,res){
-  fs.readFile('./index.html', 'UTF-8',
+  fs.readFile('./signin.html', 'UTF-8',
   function(err, data) {
     var path = url.parse(req.url).pathname;
     console.log("Request for " + path + "received.");

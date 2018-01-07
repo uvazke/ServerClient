@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>SignIn</title>
+    <script src="./socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <form action="./index.html" method="post" onsubmit="return false;">
+      <p>User Name</p>
+      <input type="text" class="text" id="Name"/>
+      <input type="submit" class="button" id="sendName" value="送信" />
+    </form>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    //接続先の指定
+    var url = "https://chatting-application1313.herokuapp.com/";
+    //接続
+    var socket = io.connect(url);
+
+    //button click, then send Name
+    $("input#sendName").click(function(){
+        var name = $("#Name").val();
+        $("#Name").val("");
+        //サーバへ送信
+        socket.emit("sendNameToServer", {value:name});
+    });
+    </script>
+  </body>
+</html>

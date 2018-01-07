@@ -5,7 +5,7 @@ var io = require('socket.io').listen(server);
 var fs = require('fs');
 var url = require("url");
 //server.on('request', doRequest);
-server.listen("https://chatting-application1313.herokuapp.com/");
+server.listen(process.env.PORT || 8000);
 console.log('server runnning');
 //クライアント接続があると、以下の処理をさせる。
 io.sockets.on('connection', function (socket) {

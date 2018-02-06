@@ -4,8 +4,7 @@
 
     <meta charset="utf-8">
     <title>SignIn</title>
-    <!-- <script src="./socket.io/socket.io.js"></script>-->
-    <script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script src="./socket.io/socket.io.js"></script>
   </head>
   <body>
     <form action="./chatroom.html" method="post">
@@ -17,8 +16,8 @@
 
     <script type="text/javascript">
     //接続先の指定
-    //var url = "https://chatting-application1313.herokuapp.com/";
-    var url = "http://localhost:8000";
+    var url = "https://chatting-application1313.herokuapp.com/";
+    //var url = "http://localhost:8000";
     //接続
     var socket = io.connect(url);
 

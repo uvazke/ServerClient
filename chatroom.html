@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <title>Client</title>
-  <script src="./socket.io/socket.io.js"></script>
+  <!--<script src="./socket.io/socket.io.js"></script>-->
+  <script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
 </head>
 <body>
   <p>接続数：<span id="people_num"></span></p>
@@ -18,15 +19,17 @@
 <script type="text/javascript">
 
 //接続先の指定
-var url = "https://chatting-application1313.herokuapp.com/";
+//var url = "https://chatting-application1313.herokuapp.com/";
+var url = "http://localhost:8000";
 
 //接続
 var socket = io.connect(url);
-
+socket.emit("");
 
 //サーバから受け取るイベントを作成
 socket.on("sendMessageToClient", function (data) {
-    $("#msg_list").prepend("<span>" + data.name + " : " +data.value + "</span><br>");
+  console.log(decodeURIComponent(document.cookie));
+  $("#msg_list").prepend("<span>" + data.name + " : " +data.value + "</span><br>");
 });
 socket.on("count", function(data){
     console.log(data.count);
@@ -39,7 +42,7 @@ $("input#send").click(function(){
     var msg = $("#message").val();
     $("#message").val("");
     //サーバへ送信
-    socket.emit("sendMessageToServer", {value:msg});
+    socket.emit("sendMessageToServer", {name:decodeURIComponent(document.cookie.split(';')[0].split('=')[1]), value:msg});
 });
 </script>
 </body>

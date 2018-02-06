@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
+
     <meta charset="utf-8">
     <title>SignIn</title>
-    <script src="./socket.io/socket.io.js"></script>
+    <!-- <script src="./socket.io/socket.io.js"></script>-->
+    <script type="text/javascript" src="http://localhost:8000/socket.io/socket.io.js"></script>
   </head>
   <body>
-    <form action="./index.html" method="post">
-      <p>User Name</p>
-      <input type="text" class="text" id="Name"/>
+    <form action="./chatroom.html" method="post">
+      <input type="text" class="text" id="name" value="username" />
       <input type="submit" class="button" id="sendName" value="送信" />
     </form>
 
@@ -16,16 +17,17 @@
 
     <script type="text/javascript">
     //接続先の指定
-    var url = "https://chatting-application1313.herokuapp.com/";
+    //var url = "https://chatting-application1313.herokuapp.com/";
+    var url = "http://localhost:8000";
     //接続
     var socket = io.connect(url);
 
     //button click, then send Name
     $("input#sendName").click(function(){
-        var name = $("#Name").val();
-        $("#Name").val("");
+        var username = $("#name").val();
+        document.cookie = "username="+ encodeURIComponent(username)+"; max-age=300";
         //サーバへ送信
-        socket.emit("sendNameToServer", {value:name});
+        socket.emit("sendNameToServer", {name:username});
     });
     </script>
   </body>

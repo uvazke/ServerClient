@@ -1,3 +1,7 @@
+<!--TODO
+add joining room_id
+-->
+
 <!DOCTYPE html>
 <html lang="ja">
   <head>
@@ -17,17 +21,16 @@
 
     <script type="text/javascript">
     //接続先の指定
-    var url = "https://chatting-application1313.herokuapp.com/";
-    //var url = "http://localhost:8000";
-    //接続
-    var socket = io.connect(url);
+    //var url = "https://chatting-application1313.herokuapp.com/";
+   
 
     //button click, then send Name
     $("input#sendName").click(function(){
         var username = $("#name").val();
-        document.cookie = "username="+ encodeURIComponent(username)+"; max-age=300; secure";
+        var userid = 0;
+        document.cookie = "username="+ encodeURIComponent(username)+";id="+encodeURIComponent(userid)+";max-age=300; secure";
         //サーバへ送信
-        socket.emit("sendNameToServer", {name:username});
+        //TODO room_id選択制に idインデン
     });
     </script>
   </body>

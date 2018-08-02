@@ -25,17 +25,26 @@ server.listen(process.env.PORT || 8000);
 
 console.log('server runnning');
 
+var usrs = {};
 io.sockets.on('connection', function (socket) {
+
   //接続通知をクライアントに送信
-  socket.on("sendNameToServer", function(data){
-    io.emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
-    io.emit("count", {count:socket.nsp.server.eio.clientsCount});
+  socket.on("join", function(data){
+    usr = {
+      'room_id': data.room_id,
+      'user_name': data.name
+    };
+    usrs[data.id] = usr;
+    socket.join(data.room_id);
+    console.log(usrs);
+    //io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
+    //io.to(room_ids[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
   });
 
   //クライアントからの受信イベントを設定
   socket.on("sendMessageToServer", function (data) {
-    io.emit("count", {count:socket.nsp.server.eio.clientsCount});
-    io.emit("sendMessageToClient", {name: data.name, value:data.value});
+    //io.to(room_ids[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
+    io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:data.value});
   });
 
   //接続切れイベントを設定

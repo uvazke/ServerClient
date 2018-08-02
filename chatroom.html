@@ -18,8 +18,8 @@
 <script type="text/javascript">
 
 //接続先の指定
-var url = "https://chatting-application1313.herokuapp.com/";
-//var url = "http://localhost:8000";
+//var url = "https://chatting-application1313.herokuapp.com/";
+var url = "http://localhost:8000";
 
 //接続
 var socket = io.connect(url);
@@ -40,8 +40,11 @@ socket.on("count", function(data){
 $("input#send").click(function(){
     var msg = $("#message").val();
     $("#message").val("");
+
+    socket.emit("join", {name:decodeURIComponent(document.cookie.split(';')[0].split('=')[1]),room_id:0, id:decodeURIComponent(document.cookie.split(';')[0].split('=')[1])});
+    console.log(decodeURIComponent(document.cookie));
     //サーバへ送信
-    socket.emit("sendMessageToServer", {name:decodeURIComponent(document.cookie.split(';')[0].split('=')[1]), value:msg});
+    socket.emit("sendMessageToServer", {name:decodeURIComponent(document.cookie.split(';')[0].split('=')[1]), value:msg, id: 0});
 });
 </script>
 </body>

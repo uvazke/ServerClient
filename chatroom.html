@@ -41,8 +41,9 @@ $("input#send").click(function(){
     var msg = $("#message").val();
     $("#message").val("");
 
-    socket.emit("join", {name:decodeURIComponent(document.cookie.split(';')[0].split('=')[1]),room_id:0, id:decodeURIComponent(document.cookie.split(';')[0].split('=')[1])});
-    console.log(decodeURIComponent(document.cookie));
+    socket.emit("join", {name:decodeURIComponent(document.cookie.split(';')[0].split('=')[1]),room_id:0, id:decodeURIComponent(document.cookie.split(';')[1].split('=')[1])});
+    console.log(decodeURIComponent(document.cookie.split(';')[0].split('=')[1]);
+    console.log(decodeURIComponent(document.cookie.split(';')[1].split('=')[1]);
     //サーバへ送信
     socket.emit("sendMessageToServer", {name:decodeURIComponent(document.cookie.split(';')[0].split('=')[1]), value:msg, id: 0});
 });

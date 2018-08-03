@@ -24,7 +24,7 @@ var url = require("url");
 server.listen(process.env.PORT || 8000);
 
 console.log('server runnning');
-
+var id = 0;
 var usrs = {};
 io.sockets.on('connection', function (socket) {
 
@@ -37,13 +37,15 @@ io.sockets.on('connection', function (socket) {
     usrs[data.id] = usr;
     socket.join(data.room_id);
     console.log(usrs);
-    //io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
-    //io.to(room_ids[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
+    io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
+    io.to(usrs[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
+    io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
+    io.to(usrs[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
   });
 
   //クライアントからの受信イベントを設定
   socket.on("sendMessageToServer", function (data) {
-    //io.to(room_ids[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
+    io.to(usrs[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
     io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:data.value});
   });
 

@@ -28,7 +28,8 @@ socket.emit("");
 
 //サーバから受け取るイベントを作成
 socket.on("sendMessageToClient", function (data) {
-  console.log(decodeURIComponent(document.cookie));
+  console.log($.cookie('username'));
+  console.log($.cookie('userid'));
   $("#msg_list").prepend("<span>" + data.name + " : " +data.value + "</span><br>");
 });
 socket.on("count", function(data){
@@ -41,8 +42,6 @@ socket.on("count", function(data){
 $("input#send").click(function(){
     var msg = $("#message").val();
     socket.emit("join", {name:$.cookie('username'),room_id:0, id:$.cookie('userid')});
-    console.log($.cookie('username'));
-    console.log($.cookie('userid'));
     //サーバへ送信
     socket.emit("sendMessageToServer", {name:$.cookie('username'), value:msg, id:$.cookie('userid')});
 });

@@ -28,7 +28,10 @@ add joining room_id
     $("input#sendName").click(function(){
         var username = $("#name").val();
         var userid = 0;
-        document.cookie = "username="+ encodeURIComponent(username)+";id="+encodeURIComponent(userid)+";max-age=300; secure";
+        document.cookie = "username="+ encodeURIComponent(username)+";";
+        document.cookie = "id="+encodeURIComponent(userid)+";";
+        document.cookie = "max-age=300;"
+        document.cookie = "secure";
         //サーバへ送信
         //TODO room_id選択制に idインデン
     });

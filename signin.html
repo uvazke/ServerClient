@@ -18,6 +18,7 @@ add joining room_id
     </form>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https:://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
     <script type="text/javascript">
     //接続先の指定
@@ -28,10 +29,9 @@ add joining room_id
     $("input#sendName").click(function(){
         var username = $("#name").val();
         var userid = 0;
-        document.cookie = "username="+ encodeURIComponent(username)+";";
-        document.cookie = "id="+encodeURIComponent(userid)+";";
-        document.cookie = "max-age=300;"
-        document.cookie = "secure";
+        $.cookie( "username" , username, secure:true);
+        $.cookie( "userid" , userid, secure:true);
+        $.cookie( "max-age" ,300);
         //サーバへ送信
         //TODO room_id選択制に idインデン
     });

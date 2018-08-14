@@ -1,8 +1,7 @@
+<!DOCTYPE html>
 <!--TODO
 add joining room_id
 -->
-
-<!DOCTYPE html>
 <html lang="ja">
   <head>
 
@@ -29,8 +28,8 @@ add joining room_id
     $("input#sendName").click(function(){
         var username = $("#name").val();
         var userid = 0;
-        $.cookie("username",username,{secure:true});
-        $.cookie("userid",userid,{secure:true});
+        $.cookie("username",username);
+        $.cookie("userid",userid);
         $.cookie("max-age",300);
         //サーバへ送信
         //TODO room_id選択制に idインデン

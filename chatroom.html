@@ -41,7 +41,8 @@ socket.on("count", function(data){
 //ボタンクリック時に、メッセージ送信
 $("input#send").click(function(){
     var msg = $("#message").val();
-    socket.emit("join", {name:$.cookie('username'),room_id:0, id:$.cookie('userid')});
+    var a = Math.floor(Math.random()*5); 
+    socket.emit("join", {name:$.cookie('username'),room_id:a, id:$.cookie('userid')});
     //サーバへ送信
     socket.emit("sendMessageToServer", {name:$.cookie('username'), value:msg, id:$.cookie('userid')});
 });

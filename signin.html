@@ -9,6 +9,9 @@ add joining room_id
     <title>SignIn</title>
     <script src="./socket.io/socket.io.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script type="text/javascript">
+      $("h4#Room1_num").text("Room1");
+    </script>
   </head>
   <body>
     <p> please input your name</p>
@@ -39,7 +42,6 @@ add joining room_id
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
     <script type="text/javascript">
-    $("h4#Room1_num").text("Room1");
     //接続先の指定
     var url = "https://chatting-application1313.herokuapp.com/";
     //var url = "http://localhost:8000";

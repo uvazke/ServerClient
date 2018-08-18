@@ -13,15 +13,7 @@
     <input type="text" class="text" id="message"/>
     <input type="submit" class="button" id="send" value="送信" />
   </form>
-  <div class="card mb-2">
-    <div class="card-body">
-      <h4 class="card-title">dsa</h4>
-      <h6 class="card-subtitle mb-2 text-muted">dfa</h6>
-      <p class="card-text">fdsafdsafdsafdsa</p>
-      <!--<a href="/api/user/edit/{{ $user->id }}" class="card-link">修正</a>
-      <a href="/api/user/delete/{{ $user->id }}" class="card-link">削除</a>-->
-    </div>
-  </div>
+  
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -52,8 +44,7 @@ socket.on("count", function(data){
 //ボタンクリック時に、メッセージ送信
 $("input#send").click(function(){
     var msg = $("#message").val();
-    var a = Math.floor(Math.random()*5); 
-    socket.emit("join", {name:$.cookie('username'),room_id:a, id:$.cookie('userid')});
+    socket.emit("join", {name:$.cookie('username'),room_id:$.cookie('roomid'), id:$.cookie('userid')});
     //サーバへ送信
     socket.emit("sendMessageToServer", {name:$.cookie('username'), value:msg, id:$.cookie('userid')});
 });

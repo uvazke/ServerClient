@@ -32,6 +32,10 @@ for(var i=0;i<n;i++){
   counts[i]=0;
 }
 io.sockets.on('connection', function (socket) {
+  socket.on("RequestNumOfRoommates", function(){
+    io.emit("ReturnNumOfRoommates", {counts: counts});
+  });
+    
 
   //接続通知をクライアントに送信
   socket.on("join", function(data){
@@ -50,13 +54,13 @@ io.sockets.on('connection', function (socket) {
   socket.on("sendMessageToServer", function (data) {
     io.to(usrs[socket.id].room_id).emit("count", {count:counts[usrs[socket.id].room_id]});
     io.to(usrs[socket.id].room_id).emit("sendMessageToClient", {name: data.name, value:data.value});
-    console.log(usrs[socket.id].room_id)
+    console.log(usrs[socket.id].room_id);
   });
 
   //接続切れイベントを設定
   socket.on("disconnect", function () {
     counts[usrs[socket.id].room_id]--;
-    io.emit("sendMessageToClient", {value:"1人退室しました。"});
+    io.emit("sendMessageToClient", {name: usrs[socket.id].name, value:"1人退室しました。"});
     io.emit("count", {count:counts[usrs[socket.id].room_id]});
     if(usrs[socket.id])delete usrs[socket.id];
   });

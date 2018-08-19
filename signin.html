@@ -39,23 +39,26 @@ add joining room_id
     var url = "https://chatting-application1313.herokuapp.com/";
     var Member_num = [3,2];
     var n = 2;
-    $(function(){
-      for (var i = 0; i < n; i++){
-        $("h6#Room"+String(i)+"_mem").text("接続数: "+Member_num[i]);
-        console.log(i);
-        console.log("h6#Room"+String(i)+"_mem");
-      };
-    });
 
     $(".selecting-room").click(function(){
-        var user_name = $("#name").val();
-        //var user_id = Math.floor(Math.random()*101);
-        var room_id = $(this).val();
-        $.cookie("username",user_name,{secure:true});
-        //$.cookie("userid",user_id,{secure:true});
-        $.cookie("roomid",room_id,{secure:true});
-        $.cookie("max-age",300);
-    })
+      var user_name = $("#name").val();
+      //var user_id = Math.floor(Math.random()*101);
+      var room_id = $(this).val();
+      $.cookie("username",user_name,{secure:true});
+      //$.cookie("userid",user_id,{secure:true});
+      $.cookie("roomid",room_id,{secure:true});
+      $.cookie("max-age",300);
+    });
+
+    var socket = io.connect(url);
+    socket.emit("");
+    socket.emit("RequestNumOfRoommates");
+    socket.on("ReturnNumOfRoommates", function (data) {
+      counts = data.counts;
+      for (var i = 0; i < n; i++){
+        $("h6#Room"+String(i)+"_mem").text("接続数: "+counts[i]);
+      }
+    });
 
     //var url = "http://localhost:8000";
     //var socket = io.connect(url);

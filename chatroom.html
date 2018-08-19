@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
+  <p1>Room <span id="Room_id"></span></p1>
   <p>接続数：<span id="people_num"></span></p>
   <p><span id="msg_list"></span></p>
   <form action="" method="post" onsubmit="return false;">
@@ -43,6 +44,9 @@ socket.on("sendMessageToClient", function (data) {
 socket.on("count", function(data){
     console.log(data.count);
     $("#people_num").text(data.count);
+});
+$(function(){
+  $(#Room_id).text($.cookie('roomid'));
 });
 
 

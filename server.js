@@ -57,7 +57,7 @@ io.sockets.on('connection', function (socket) {
     counts[usrs[socket.id].room_id]--;
     io.emit("sendMessageToClient", {value:"1人退室しました。"});
     io.emit("count", {count:counts[usrs[socket.id].room_id]});
-    delete usrs[socket.id];
+    if(usrs[socket.id])delete usrs[socket.id];
   });
 });
 

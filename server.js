@@ -59,10 +59,10 @@ io.sockets.on('connection', function (socket) {
 
   //接続切れイベントを設定
   socket.on("disconnect", function () {
-    counts[usrs[socket.id].room_id]--;
+   if(counts[usrs[socket.io]]){counts[usrs[socket.id].room_id]--;};
     io.emit("sendMessageToClient", {name: usrs[socket.id].name, value:"1人退室しました。"});
     io.emit("count", {count:counts[usrs[socket.id].room_id]});
-    if(usrs[socket.id]){delete usrs[socket.id]};
+    if(usrs[socket.id]){delete usrs[socket.id];};
   });
 });
 

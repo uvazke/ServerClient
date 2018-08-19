@@ -27,9 +27,9 @@ console.log('server runnning');
 var id = 0;
 var usrs = {};
 var counts = {};
-n=2;
+var n=2;
 for(var i=0;i<n;i++){
-  counts[n]=0;
+  counts[i]=0;
 }
 io.sockets.on('connection', function (socket) {
 

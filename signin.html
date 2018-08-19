@@ -37,15 +37,6 @@ add joining room_id
     <script type="text/javascript">
     //接続先の指定
     var url = "https://chatting-application1313.herokuapp.com/";
-    var Member_num ={};
-    Member_num["dsad"] = 0;
-    $(function(){
-      if(Member_num["dsad"]){console.log("way");}
-      if(Member_num["dsad"])console.log("222");
-      if(Member_num["fdafdasfds"]){console.log("4231231");}
-      console.log("hoge");
-    });
-    
     var n = 2;
 
 
@@ -58,16 +49,20 @@ add joining room_id
       $.cookie("roomid",room_id,{secure:true});
       $.cookie("max-age",300);
     });
-
-    var socket = io.connect(url);
-    socket.emit("");
-    socket.emit("RequestNumOfRoommates");
-    socket.on("ReturnNumOfRoommates", function (data) {
-      counts = data.counts;
-      for (var i = 0; i < n; i++){
-        $("h6#Room"+String(i)+"_mem").text("接続数: "+counts[i]);
-      }
+    $(function(){
+      var socket = io.connect(url);
+      socket.emit("");
+      socket.emit("RequestNumOfRoommates");
+      socket.on("ReturnNumOfRoommates", function (data) {
+        counts = data.counts;
+        for (var i = 0; i < n; i++){
+          $("h6#Room"+String(i)+"_mem").text("接続数: "+counts[i]);
+        }
+      });
     });
+    
+
+
 
     //var url = "http://localhost:8000";
     //var socket = io.connect(url);

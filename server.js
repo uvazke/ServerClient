@@ -36,9 +36,6 @@ io.sockets.on('connection', function (socket) {
     };
     usrs[data.id] = usr;
     socket.join(data.room_id);
-    console.log(usrs);
-    io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
-    io.to(usrs[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
     io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
     io.to(usrs[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
   });

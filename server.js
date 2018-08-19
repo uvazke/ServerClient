@@ -61,7 +61,7 @@ io.sockets.on('connection', function (socket) {
   socket.on("disconnect", function () {
     if(usrs[socket.id]){
       if(counts[usrs[socket.id].room_id]){counts[usrs[socket.id].room_id]--;};
-      io.emit("sendMessageToClient", {name: usrs[socket.id].name, value:"1人退室しました。"});
+      io.emit("sendMessageToClient", {name: usrs[socket.id].user_name, value:"1人退室しました。"});
       io.emit("count", {count:counts[usrs[socket.id].room_id]});
       delete usrs[socket.id];
     };

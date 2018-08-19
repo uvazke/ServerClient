@@ -50,6 +50,7 @@ io.sockets.on('connection', function (socket) {
   socket.on("sendMessageToServer", function (data) {
     io.to(usrs[socket.id].room_id).emit("count", {count:counts[usrs[socket.id].room_id]});
     io.to(usrs[socket.id].room_id).emit("sendMessageToClient", {name: data.name, value:data.value});
+    console.log(usrs[socket.id].room_id)
   });
 
   //接続切れイベントを設定

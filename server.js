@@ -61,16 +61,22 @@ function doRequest(req,res){
   if(path == '/chatroom.html'){
     fs.readFile('./chatroom.html', 'UTF-8',
     function(err, data) {
-      var path = url.parse(req.url).pathname;
       console.log("Request for " + path + "received.");
       res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(data);
+      res.end();
+    });
+  }else if(path == '/css/style.css'){
+    fs.readFile('./css/style.css', 'UTF-8',
+      function(err, data) {
+      console.log("Request for " + path + "received.");
+      res.writeHead(200, {'Content-Type': 'text/css'});
       res.write(data);
       res.end();
     });
   }else{
     fs.readFile('./signin.html', 'UTF-8',
     function(err, data) {
-      var path = url.parse(req.url).pathname;
       console.log("Request for " + path + "received.");
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.write(data);

@@ -29,14 +29,15 @@ var url = "https://chatting-application1313.herokuapp.com/";
 var socket = io.connect(url);
 socket.emit("");
 $(function(){
-  socket.emit("join", {name:$.cookie('username'),room_id:$.cookie('roomid'), id:$.cookie('userid')});
+  socket.emit("join", {name:$.cookie('username'),room_id:$.cookie('roomid')});
   console.log('joined the room '+ $.cookie('roomid'));
 })
 //サーバから受け取るイベントを作成
 socket.on("sendMessageToClient", function (data) {
   console.log('username: '+ $.cookie('username'));
-  console.log('userid: '+ $.cookie('userid'));
+  //console.log('userid: '+ $.cookie('userid'));
   console.log('roomid: '+ $.cookie('roomid'));
+  console.log(socket.id);
   $("#msg_list").prepend("<span>" + data.name + " : " +data.value + "</span><br>");
 });
 socket.on("count", function(data){
@@ -49,7 +50,7 @@ socket.on("count", function(data){
 $("input#send").click(function(){
     var msg = $("#message").val();
     //サーバへ送信
-    socket.emit("sendMessageToServer", {name:$.cookie('username'), value:msg, id:$.cookie('userid')});
+    socket.emit("sendMessageToServer", {name:$.cookie('username'), value:msg});
 });
 </script>
 </body>

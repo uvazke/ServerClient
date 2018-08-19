@@ -47,14 +47,12 @@ add joining room_id
       };
     });
 
-    
-    
     $(".selecting-room").click(function(){
         var user_name = $("#name").val();
-        var user_id = Math.floor(Math.random()*101);
+        //var user_id = Math.floor(Math.random()*101);
         var room_id = $(this).val();
         $.cookie("username",user_name,{secure:true});
-        $.cookie("userid",user_id,{secure:true});
+        //$.cookie("userid",user_id,{secure:true});
         $.cookie("roomid",room_id,{secure:true});
         $.cookie("max-age",300);
     })

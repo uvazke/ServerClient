@@ -26,6 +26,11 @@ server.listen(process.env.PORT || 8000);
 console.log('server runnning');
 var id = 0;
 var usrs = {};
+var counts = {};
+n=2;
+for(var i=0;i<n;i++){
+  counts[n]=0;
+}
 io.sockets.on('connection', function (socket) {
 
   //接続通知をクライアントに送信
@@ -34,22 +39,25 @@ io.sockets.on('connection', function (socket) {
       'room_id': data.room_id,
       'user_name': data.name
     };
-    usrs[data.id] = usr;
+    usrs[socket.id] = usr;
+    counts[data.room_id]++; 
     socket.join(data.room_id);
-    io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
-    io.to(usrs[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
+    io.to(usrs[socket.id].room_id).emit("sendMessageToClient", {name: data.name, value:"入室しました。"});
+    io.to(usrs[socket.id].room_id).emit("count", {count:counts[data.room_id]});
   });
 
   //クライアントからの受信イベントを設定
   socket.on("sendMessageToServer", function (data) {
-    io.to(usrs[data.id].room_id).emit("count", {count:socket.nsp.server.eio.clientsCount});
-    io.to(usrs[data.id].room_id).emit("sendMessageToClient", {name: data.name, value:data.value});
+    io.to(usrs[socket.id].room_id).emit("count", {count:counts[usrs[socket.id].room_id]});
+    io.to(usrs[socket.id].room_id).emit("sendMessageToClient", {name: data.name, value:data.value});
   });
 
   //接続切れイベントを設定
   socket.on("disconnect", function () {
+    counts[usrs[socket.id].room_id]--;
     io.emit("sendMessageToClient", {value:"1人退室しました。"});
-    io.emit("count", {a:socket.nsp.server.eio.clientsCount});
+    io.emit("count", {count:counts[usrs[socket.id].room_id]});
+    delete usrs[socket.id];
   });
 });
 
